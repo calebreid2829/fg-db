@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+    <title>Street Fighter 6 Punish Calculator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+    crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css"></style>
+</head>
+
+<body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="characters">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col">
+                <select class="player1" name="character_select" id="player1_select" data-name="character_select">
+                  <option class="dropdown-item" value="null" selected>Player 1</option>
+                </select>
+                </div>
+                <div class="col">
+                <button class="attacker_button player1 hidden" data-name="attacker_button">Attacker</button>
+                </div>
+              </div>
+              <div class="collapse show player1" id="player1_stats" data-name="fighter_stats">
+                <div class="row">
+                  <div class="square mx-auto"></div>
+                </div>
+                  <div class="row character_stats">
+                    <div class="col">
+                      <h7 class="mx-auto">Health</h7>
+                      <p class="player1" data-name="health"></p>
+                    </div>
+                    <div class="col">
+                      <h7>Forward Dash Speed</h7>
+                      <p class="player1" data-name="fwd_dash_speed"></p>
+                    </div>
+                    <div class="col">
+                      <h7>Back Dash Speed</h7>
+                      <p class="player1" data-name="back_dash_speed"></p>
+                    </div>
+                  </div>
+                  <div class="row character_stats">
+                    <div class="col">
+                      <h7>Forward Dash Distance</h7>
+                      <p class="player1" data-name="fwd_dash_distance"></p>
+                    </div>
+                    <div class="col">
+                      <h7>Back Dash Distance</h7>
+                      <p class="player1" data-name="back_dash_distance"></p>
+                    </div>
+                  </div>
+                </div>
+              <div class="row">
+                <button data-bs-toggle="collapse" data-bs-target="#player1_stats"class="mx-auto">
+                  toggle
+                </button>
+              </div>
+              <div class="row">
+                <div class="col">
+                <select class="player2" name="character_select" id="player2_select" data-name="character_select">
+                  <option class="dropdown-item" value="null" selected>Player 2</option>
+                </select>
+                </div>
+                <div class="col">
+                <button class="attacker_button player2 hidden" data-name="attacker_button">Attacker</button>
+                </div>
+              </div>
+              <div class="collapse show" id="player2_stats">
+                <div class="row">
+                  <div class="square mx-auto"></div>
+                </div>
+                <div class="row character_stats">
+                  <div class="col">
+                    <h7 class="mx-auto">Health</h7>
+                    <p class="player2" data-name="health"></p>
+                  </div>
+                  <div class="col">
+                    <h7>Forward Dash Speed</h7>
+                    <p class="player2" data-name="fwd_dash_speed"></p>
+                  </div>
+                  <div class="col">
+                    <h7>Back Dash Speed</h7>
+                    <p class="player2" data-name="back_dash_speed"></p>
+                  </div>
+                </div>
+                <div class="row character_stats">
+                  <div class="col">
+                    <h7>Forward Dash Distance</h7>
+                    <p class="player2" data-name="fwd_dash_distance"></p>
+                  </div>
+                  <div class="col">
+                    <h7>Back Dash Distance</h7>
+                    <p class="player2" data-name="back_dash_distance"></p>
+                  </div>
+                </div>
+                </div>
+              <div class="row">
+                <button data-bs-toggle="collapse" data-bs-target="#player2_stats"class="mx-auto">
+                  toggle
+                </button>
+              </div>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-6">
+          <div class="moves">
+            <div class="collapse show table-responsive" id="move_table">
+              <table class="table table-dark table-hover table-striped collapse show table-sm">
+                <thead>
+                  <tr>
+                    <th>Move Name</th>
+                    <th>Startup</th>
+                    <th>Active</th>
+                    <th>Recovery</th>
+                    <th>On Hit</th>
+                    <th>On Block</th>
+                  </tr>
+                </thead>
+                <tbody id="table_body" name = "table_body" data-listener="attacker_selected">
+                </tbody>
+              </table>
+            </div>
+            <div class="collapse table-responsive" id="move_table">
+              <table class="table table-dark table-hover table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th>Move Name</th>
+                    <th>Startup</th>
+                    <th>Active</th>
+                    <th>Recovery</th>
+                    <th>On Hit</th>
+                    <th>On Block</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="selected_move_row" data-bs-toggle="collapse" data-bs-target="#move_table" name="selected_move_row" data-listener="move_selected">
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <div class="punish_moves">
+            <h7>Punish Moves</h7>
+            <div class="container-fluid">
+              <ul id="punish_moves" data-listener="move_selected move_unselected">
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+crossorigin="anonymous"></script> 
+<script src="jquery.js"></script> 
+<script src="scripts.js"></script>
+</body>
+</html> 

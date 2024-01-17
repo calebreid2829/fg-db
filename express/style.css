@@ -1,0 +1,69 @@
+body {
+    background-image: url("fighting_ground.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+td{
+    border-style: solid;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#test{
+    color: white;
+}
+.hidden{
+    display: none;
+}
+
+/* The container must be positioned relative: */
+ /* The container must be positioned relative: */
+.attacker_button:hover{
+    background-color: rgb(6, 91, 249);
+
+}
+.attacker_button{
+    background-color: rgb(19, 82, 199);
+    color: white;
+}
+.attacker_button.active{
+    background-color: rgb(6, 91, 249);
+}
+.navi{
+    background-color: rgb(73, 73, 73);
+}
+.characters{
+    background-color:blueviolet;
+    opacity: 90%;
+    z-index: 1;
+}
+.selection select{
+width: 60%;
+margin-left: 5%;
+}
+.selection button{
+width: 20%;
+margin-right: 5%;
+margin-left: 5%;
+}
+.punish_moves{
+background-color: darkblue;
+color: white;
+}
+.attacker_button{
+background-color: rgb(19, 82, 199);
+color: white;
+}
+.square{
+background-color: black;
+width: 100px;
+height: 100px;
+}
+.character_stats{
+background-color: rgb(56, 56, 56);
+color: white;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+}

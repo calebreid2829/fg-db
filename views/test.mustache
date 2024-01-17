@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fighting Game Database</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+    crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css"></style>
+</head>
+<body>
+    <nav class="nav justify-content-center navi">
+        <div class="container-fluid">
+            <div class="row">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <select class="border-1 player1" name="character_select" id="character_select" data-name="character_select">
+                        <option class="dropdown-item" value="null" selected>Select Character</option>
+                        <option class="dropdown-item" value=1>Luke</option>
+                        <option class="dropdown-item" value=2>Jamie</option>
+                        <option class="dropdown-item" value=3>Manon</option>
+                        <option class="dropdown-item" value=4>Kimberly</option>
+                        <option class="dropdown-item" value=5>Marisa</option>
+                        <option class="dropdown-item" value=6>Lily</option>
+                        <option class="dropdown-item" value=7>JP</option>
+                        <option class="dropdown-item" value=8>Juri</option>
+                        <option class="dropdown-item" value=9>Deejay</option>
+                        <option class="dropdown-item" value=10>Cammy</option>
+                        <option class="dropdown-item" value=11>Ryu</option>
+                        <option class="dropdown-item" value=12>E.Honda</option>
+                        <option class="dropdown-item" value=13>Blanka</option>
+                        <option class="dropdown-item" value=14>Guile</option>
+                        <option class="dropdown-item" value=15>Ken</option>
+                        <option class="dropdown-item" value=16>Chun-Li</option>
+                        <option class="dropdown-item" value=17>Zangief</option>
+                        <option class="dropdown-item" value=18>Dhalsim</option>
+                        <option class="dropdown-item" value=19>Rashid</option>
+                        <option class="dropdown-item" value=20>A.K.I.</option>
+                    </select>
+                </li>
+                <li class="nav-item">
+                    {{character_select}}
+                </li>
+            </ul>
+            </div>
+            <div class="row">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <p  class="defender_button player1" data-name="attacker_button">Attacker</p>
+                    </li>
+                    <li class="nav-item ">
+                        <p class="defender_button player2" data-name="attacker_button">Attacker</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="btn-group">
+                    <select class="btn btn-primary dropdown-toggle player" data-name="move_select" id="move_select">
+                        <option class="dropdown-item" value="null" selected>Select Move</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col"></div>
+    </div>
+   
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+crossorigin="anonymous"></script> 
+<script src="jquery.js"></script> 
+<script src="scripts.js"></script>
+</body>
+</html> 
