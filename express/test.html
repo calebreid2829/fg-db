@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+    <title>Fighting Game Database</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+    crossorigin="anonymous">
+
+<style>
+    body {
+        background-image: url("/static/fighting_ground.jpeg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .menu{
+        background-image: radial-gradient(circle, rgba(255,0,0,0) 1%,
+        rgba(95, 9, 234, 0.486)95%,rgba(29, 48, 214, 0.561)100%);
+        color: white;
+        border-left-style: solid;
+        border-left-width: 3px;
+        border-left-color: rgb(1, 18, 162);
+    }
+    .menu-items{
+        list-style-type: none;
+        margin: 3px;
+        text-align: center;
+        padding: 0px;
+
+    }
+    .menu-items li:hover{
+        background-image: radial-gradient(circle,
+        rgba(170, 9, 234, 0.486)95%,rgba(219, 9, 234, 0.766)100%);
+        border-style: solid;
+        border-width: 3px;
+        border-color: rgb(255, 140, 249);
+        color:rgb(253, 220, 251)
+    }
+    .holder{
+        background-image: radial-gradient(circle, rgba(255,0,0,0) 10%,
+        rgba(255, 62, 204, 0.344)90%,rgba(251, 29, 192, 0.486)100%);
+    }
+</style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="container-fluid holder">
+                <div class="row">
+                    <p style="color:white;">stuff before</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="menu">
+                            <ul class="menu-items">
+                                <li>Training</li>
+                                <li>Tutorials</li>
+                                <li>Character Guides</li>
+                                <li>Combo Trials</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p style="color:white;">stuff after</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+</div>
+</body>
+</html>

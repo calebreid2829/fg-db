@@ -8,162 +8,187 @@
     rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
     crossorigin="anonymous">
 
-    <link rel="stylesheet" href="static/style.css"></style>
-</head>
+    <!--<link rel="stylesheet" href="static/style.css"></style>-->
+    <style>
+        body{
+            background-color: gray;
+        }
+        .custom-select{
+            position: relative;
 
+        }
+        .custom-select select{
+            display: none;
+        }
+        .select-selected{
+            background-color: dodgerblue;
+        }
+        .select-selected{
+            color: white;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+            cursor: pointer;
+        }   
+        .select-items div{
+            color: white;
+            padding: 4px 8px;
+            border: 1px solid transparent;
+            border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+            cursor: pointer;
+        }
+        .select-items {
+            position: absolute;
+            background-color: dodgerblue;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 99;
+        }
+        .select-hide {
+            display: none;
+        }
+        .select-items div:hover, .same-as-selected{
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .moves{
+            background-color: blueviolet;
+        }
+    </style>
+</head>
 <body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="characters">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col">
-                <select class="player1" name="character_select" id="player1_select" data-name="character_select">
-                  <option class="dropdown-item" value="null" selected>Player 1</option>
-                </select>
+        <div class="row">
+            <div class="col" style="background-color: red;">
+                <div class="custom-select" >
+                    <select>
+                        <option>Select Fighter</option>
+                        <option value=1>a
+                        </option>
+                    </select>   
                 </div>
-                <div class="col">
-                <button class="attacker_button player1 hidden" data-name="attacker_button">Attacker</button>
-                </div>
-              </div>
-              <div class="collapse show player1" id="player1_stats" data-name="fighter_stats">
-                <div class="row">
-                  <div class="square mx-auto"></div>
-                </div>
-                  <div class="row character_stats">
-                    <div class="col">
-                      <h7 class="mx-auto">Health</h7>
-                      <p class="player1" data-name="health"></p>
-                    </div>
-                    <div class="col">
-                      <h7>Forward Dash Speed</h7>
-                      <p class="player1" data-name="fwd_dash_speed"></p>
-                    </div>
-                    <div class="col">
-                      <h7>Back Dash Speed</h7>
-                      <p class="player1" data-name="back_dash_speed"></p>
-                    </div>
-                  </div>
-                  <div class="row character_stats">
-                    <div class="col">
-                      <h7>Forward Dash Distance</h7>
-                      <p class="player1" data-name="fwd_dash_distance"></p>
-                    </div>
-                    <div class="col">
-                      <h7>Back Dash Distance</h7>
-                      <p class="player1" data-name="back_dash_distance"></p>
-                    </div>
-                  </div>
-                </div>
-              <div class="row">
-                <button data-bs-toggle="collapse" data-bs-target="#player1_stats"class="mx-auto">
-                  toggle
-                </button>
-              </div>
-              <div class="row">
-                <div class="col">
-                <select class="player2" name="character_select" id="player2_select" data-name="character_select">
-                  <option class="dropdown-item" value="null" selected>Player 2</option>
-                </select>
-                </div>
-                <div class="col">
-                <button class="attacker_button player2 hidden" data-name="attacker_button">Attacker</button>
-                </div>
-              </div>
-              <div class="collapse show" id="player2_stats">
-                <div class="row">
-                  <div class="square mx-auto"></div>
-                </div>
-                <div class="row character_stats">
-                  <div class="col">
-                    <h7 class="mx-auto">Health</h7>
-                    <p class="player2" data-name="health"></p>
-                  </div>
-                  <div class="col">
-                    <h7>Forward Dash Speed</h7>
-                    <p class="player2" data-name="fwd_dash_speed"></p>
-                  </div>
-                  <div class="col">
-                    <h7>Back Dash Speed</h7>
-                    <p class="player2" data-name="back_dash_speed"></p>
-                  </div>
-                </div>
-                <div class="row character_stats">
-                  <div class="col">
-                    <h7>Forward Dash Distance</h7>
-                    <p class="player2" data-name="fwd_dash_distance"></p>
-                  </div>
-                  <div class="col">
-                    <h7>Back Dash Distance</h7>
-                    <p class="player2" data-name="back_dash_distance"></p>
-                  </div>
-                </div>
-                </div>
-              <div class="row">
-                <button data-bs-toggle="collapse" data-bs-target="#player2_stats"class="mx-auto">
-                  toggle
-                </button>
-              </div>
-          </div>
-        </div>
-      </div>
-        <div class="col-lg-6">
-          <div class="moves">
-            <div class="collapse show table-responsive" id="move_table">
-              <table class="table table-dark table-hover table-striped collapse show table-sm">
-                <thead>
-                  <tr>
-                    <th>Move Name</th>
-                    <th>Startup</th>
-                    <th>Active</th>
-                    <th>Recovery</th>
-                    <th>On Hit</th>
-                    <th>On Block</th>
-                  </tr>
-                </thead>
-                <tbody id="table_body" name = "table_body" data-listener="attacker_selected">
-                </tbody>
-              </table>
             </div>
-            <div class="collapse table-responsive" id="move_table">
-              <table class="table table-dark table-hover table-striped table-sm">
-                <thead>
-                  <tr>
-                    <th>Move Name</th>
-                    <th>Startup</th>
-                    <th>Active</th>
-                    <th>Recovery</th>
-                    <th>On Hit</th>
-                    <th>On Block</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr id="selected_move_row" data-bs-toggle="collapse" data-bs-target="#move_table" name="selected_move_row" data-listener="move_selected">
-
-                  </tr>
-                </tbody>
-              </table>
+            <div class="col">
+                <div class="container-fluid moves">
+                    <div class="row">
+                        <p>stuffs</p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <p>simulating more content</p>
+                    </div>
+                </div>
             </div>
-          </div>
-
-        </div>
-        <div class="col-lg-3">
-          <div class="punish_moves">
-            <h7>Punish Moves</h7>
-            <div class="container-fluid">
-              <ul id="punish_moves" data-listener="move_selected move_unselected">
-
-              </ul>
+            <div class="col" style="background-color: yellow;">
+                <p>more stuffs</p>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
-crossorigin="anonymous"></script> 
-<script src="static/jquery.js"></script> 
-<script src="static/scripts.js"></script>
+    <div id="rashid_title">
+        <svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 160">
+            <path d="M70.74,92.34l7.33,48.89h-23.41l-7.17-47.93h-11.78v47.93H12.3V21.64H59.75c1.59,0,1.91,.32,3.03,.96,.96,.8,13.7,13.54,14.65,14.81,.64,.96,.96,1.27,.96,3.03v41.56c0,1.59-.48,3.34-.96,3.82-2.07,2.39-5.1,4.78-6.69,6.53Zm-35.03-22.93h18.95v-25.8h-18.95v25.8Z"></path>
+            <path d="M154.97,21.8v119.43h-23.41v-47.93h-19.11v47.93h-23.41V39.15c0-.48,.16-1.43,.64-1.91,2.07-1.75,13.06-12.9,14.81-14.81,.32-.16,.8-.64,2.39-.64h48.09Zm-23.41,21.98h-19.11v25.64h19.11v-25.64Z"></path>
+            <path d="M183.79,21.8h48.09V59.22h-23.41v-15.61h-19.27v25.8h25.96c.8,0,1.59,.64,1.59,.64l14.17,14.49s.96,.96,.96,2.39v36.31c0,.96-.32,2.07-.8,2.55-2.87,3.03-12.58,12.9-13.38,13.69-1.75,1.75-1.27,1.75-3.82,1.75h-30.89c-1.27,0-1.27-.32-2.71-1.75-.48-.8-11.47-11.78-14.01-14.17-.16-.32-.48-.8-.48-1.27v-20.22h23.41v15.29h19.27v-25.8h-25.96c-.64,0-1.11-.48-1.11-.48l-15.13-15.13s-.48-.32-.48-1.43V39.15c0-.96,.32-1.43,.8-1.91,2.71-2.87,12.9-13.06,13.7-14.01,1.59-1.75,1.11-1.43,3.5-1.43Z"></path>
+            <path d="M283.16,21.8h23.41v119.43h-23.41v-47.93h-17.2v47.93h-23.41V21.8h23.41v47.61h17.2V21.8Z"></path>
+            <path d="M317.39,21.8h23.57v119.43h-23.57V21.8Z"></path>
+            <path d="M351.79,141.23V21.8h47.61c1.59,0,1.59,.16,2.87,.96,.96,.8,13.54,13.54,14.49,14.81,.8,.96,.96,1.12,.96,3.03V123.71c0,.96-.48,1.75-.48,1.75l-14.17,14.49s-1.27,1.27-2.71,1.27h-48.57Zm23.41-22.29h19.11V43.77h-19.11V118.93Z"></path>
+        </svg> 
+    </div>
+    <div>
+        <svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 160">
+            <path d="M70.74,92.34l7.33,48.89h-23.41l-7.17-47.93h-11.78v47.93H12.3V21.64H59.75c1.59,0,1.91,.32,3.03,.96,.96,.8,13.7,13.54,14.65,14.81,.64,.96,.96,1.27,.96,3.03v41.56c0,1.59-.48,3.34-.96,3.82-2.07,2.39-5.1,4.78-6.69,6.53Zm-35.03-22.93h18.95v-25.8h-18.95v25.8Z"></path>
+            <path d="M154.97,21.8v119.43h-23.41v-47.93h-19.11v47.93h-23.41V39.15c0-.48,.16-1.43,.64-1.91,2.07-1.75,13.06-12.9,14.81-14.81,.32-.16,.8-.64,2.39-.64h48.09Zm-23.41,21.98h-19.11v25.64h19.11v-25.64Z"></path>
+            <path d="M183.79,21.8h48.09V59.22h-23.41v-15.61h-19.27v25.8h25.96c.8,0,1.59,.64,1.59,.64l14.17,14.49s.96,.96,.96,2.39v36.31c0,.96-.32,2.07-.8,2.55-2.87,3.03-12.58,12.9-13.38,13.69-1.75,1.75-1.27,1.75-3.82,1.75h-30.89c-1.27,0-1.27-.32-2.71-1.75-.48-.8-11.47-11.78-14.01-14.17-.16-.32-.48-.8-.48-1.27v-20.22h23.41v15.29h19.27v-25.8h-25.96c-.64,0-1.11-.48-1.11-.48l-15.13-15.13s-.48-.32-.48-1.43V39.15c0-.96,.32-1.43,.8-1.91,2.71-2.87,12.9-13.06,13.7-14.01,1.59-1.75,1.11-1.43,3.5-1.43Z"></path>
+            <path d="M283.16,21.8h23.41v119.43h-23.41v-47.93h-17.2v47.93h-23.41V21.8h23.41v47.61h17.2V21.8Z"></path>
+            <path d="M317.39,21.8h23.57v119.43h-23.57V21.8Z"></path>
+            <path d="M351.79,141.23V21.8h47.61c1.59,0,1.59,.16,2.87,.96,.96,.8,13.54,13.54,14.49,14.81,.8,.96,.96,1.12,.96,3.03V123.71c0,.96-.48,1.75-.48,1.75l-14.17,14.49s-1.27,1.27-2.71,1.27h-48.57Zm23.41-22.29h19.11V43.77h-19.11V118.93Z"></path>
+        </svg> 
+    </div>
+    <div>
+        <svg id="test" height="200" width="200">
+            <path d="M100 0 L150 150  L200 200 Z"></path>
+        </svg>
+    </div>
+    <script>
+
+    let selects = document.getElementsByClassName("custom-select");
+    //storing length separately because the object is appended to
+    //... or actually that may not be the case
+    let for_length = selects.length;
+    for(let i = 0 ; i < for_length; i++){
+        let element = selects[i].getElementsByTagName("select")[0];
+        let div = document.createElement("div");
+        div.setAttribute("class", "select-selected");
+        div.innerHTML = element.options[element.selectedIndex].innerHTML;
+        selects[i].appendChild(div);
+        let option_list = document.createElement("div");
+        option_list.setAttribute("class", "select-items select-hide");
+        let new_option;
+        for(let x = 1; x < element.length; x++){
+            new_option = document.createElement("div");
+            //new_option.innerHTML = element.options[x].innerHTML;
+            let title = document.getElementById("rashid_title");
+            title.classList.remove("select-hide");
+            console.log(title.children);
+            new_option.appendChild(title);
+            new_option.addEventListener("click",function(e){
+                let still_select = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                let previous = this.parentNode.previousSibling;
+                for (let y=0; y < still_select.length; y++){
+                    if(still_select.options[y].innerHTML == this.innerHTML){
+                        still_select.selectedIndex = y;
+                        previous.innerHTML = this.innerHTML;
+                        let same = this.parentNode.getElementsByClassName("same-as-selected");
+                        for (let z = 0; z < same.length; z++){
+                            same[z].removeAttribute("class");
+                        }
+                        this.setAttribute("class","same-as-selected");
+                        break;
+                    }
+                }
+                previous.click();
+            });
+            option_list.append(new_option);
+        }
+        selects[i].appendChild(option_list);
+        div.addEventListener("click",function(e){
+            e.stopPropagation();
+            closeAllSelect(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+        });
+    }
+
+/* Look for any elements with the class "custom-select": */
+let x = document.getElementsByClassName("custom-select");
+
+function closeAllSelect(elmnt) {
+  /* A function that will close all select boxes in the document,
+  except the current select box: */
+  var x, y, i, xl, yl, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+
+/* If the user clicks anywhere outside the select box,
+then close all select boxes: */
+document.addEventListener("click", closeAllSelect);
+    </script>
 </body>
-</html> 
+
+</html>

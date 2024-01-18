@@ -11,7 +11,7 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "localhost",
   user: "db_viewer",
-  password: ""
+  password: "password"
 });
 
 //const URLSearchParams = require('URLSearchParams');
@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static("express"));// default URL for website
 app.use('/static', express.static('express/static'));
+app.get('/test',(req,res)=>{
+    res.sendFile(path.join(__dirname+"/express/test.html"));
+})
 app.get('/',(req,res) =>{
     res.sendFile(path.join(__dirname+'/express/index.html'));
     //con.query('SELECT fighter_id,name FROM bucklers.fighters WHERE game_id=1',function(err,result,fields){
@@ -31,6 +34,10 @@ app.get('/',(req,res) =>{
     //let x = document.createTextNode('Hello there');
     //i.appendChild(x);
     //res.render('test',{character_select:i});
+});
+
+app.get('/punish',(req,res)=>{
+    res.sendFile(path.join(__dirname+'/express/punish.html'));
 });
 
 app.post('/fighter_stats',(req,res)=>{

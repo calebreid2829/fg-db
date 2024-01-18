@@ -51,7 +51,12 @@ class fighter {
         item.addEventListener("change",function(){
             let self_value = item.options[item.selectedIndex].value;
             self.stats = item.selectedIndex-1;
-            self.post_query(self_value);
+            if(self_value != "null"){
+                self.post_query(self_value);
+            }
+            if(self.active){
+                document.dispatchEvent(new CustomEvent("move_unselected"))
+            }
             
         });
     }
@@ -67,6 +72,7 @@ class fighter {
                 bubbles:false,
                 detail:{movelist:self.movelist,fighter:self},
             }));
+            document.dispatchEvent(new CustomEvent("move_unselected"));
             //self.set_move_table();
         });
     }
@@ -83,6 +89,12 @@ class fighter {
             console.log(status);
             self.movelist = data.splice(0);
             self.elements.attacker_button.classList.remove("hidden");
+            if(self.active){
+                document.dispatchEvent(new CustomEvent("attacker_selected",{
+                    bubbles:false,
+                    detail:{movelist:self.movelist,fighter:self},
+                }));
+            }
         });
     }
 }
@@ -99,9 +111,9 @@ function remove_children(element){
     return element;
 }
 
-const events = ['move_selected','move_unselected','attacker_selected'];
+const events = ['move_selected','move_unselected','attacker_selected','attacker_unselected'];
 
-function add_listeners(events){
+function add_document_listeners(events){
     events.forEach(function(event){
         document.addEventListener(event,(e)=>{
             let listeners = document.querySelectorAll(`[data-listener~=${event}]`);
@@ -112,7 +124,12 @@ function add_listeners(events){
         });
     });
 }
-add_listeners(events);
+//function add_same_response(events,object){
+//    events.forEach((event)=>{
+//        object.addEventListener(event,object);
+//    });
+//}
+add_document_listeners(events);
 
 document.getElementById("selected_move_row").addEventListener("move_selected",function(e){
     let self = this;
@@ -124,10 +141,14 @@ document.getElementById("selected_move_row").addEventListener("move_selected",fu
         element.innerHTML = value;
         self.appendChild(element);
     });
+    let collapsible = document.getElementById("selected_move_table");
+    collapsible.style.maxHeight = collapsible.scrollHeight + "px";
 });
 
 document.getElementById("selected_move_row").addEventListener("click",function(){
     document.dispatchEvent(new CustomEvent("move_unselected",{bubbles:false}));
+    let collapsible = document.getElementById("selected_move_table");
+    collapsible.style.maxHeight = "0px";
 });
 
 document.getElementById("punish_moves").addEventListener("move_selected",function(e){
@@ -136,6 +157,7 @@ document.getElementById("punish_moves").addEventListener("move_selected",functio
     let item = e.detail.item;
     let on_block = parseInt(item.on_block) * -1
     let movelist = e.detail.fighter.vs.movelist;
+    //TypeError when movelist is null
     for(let i =0;i<movelist.length;i++){
         if(movelist[i].startup <= on_block){
             let li = document.createElement("li");
@@ -144,10 +166,24 @@ document.getElementById("punish_moves").addEventListener("move_selected",functio
         }
     }
 });
-document.getElementById("punish_moves").addEventListener("move_unselected",function(e){
-    remove_children(this);
+document.getElementById("punish_moves").addEventListener('move_unselected',function(e){
+        remove_children(this);
+});
+//add_same_response(['move_unselected','attacker_unselected'],
+//    document.getElementById("punish_moves"),function(){
+//        remove_children(this);
+//})
+
+document.getElementById("move_table").addEventListener("move_unselected",function(e){
+    this.style.maxHeight = this.scrollHeight + "px";
+});
+document.getElementById("move_table").addEventListener("move_selected",function(e){
+    this.style.maxHeight = "0px";
 });
 
+document.getElementById("table_body").addEventListener("attacker_unselected",function(e){
+    remove_children(this);
+});
 document.getElementById("table_body").addEventListener("attacker_selected",function(e){
     let self = this;
     let movelist = e.detail.movelist;
@@ -157,10 +193,8 @@ document.getElementById("table_body").addEventListener("attacker_selected",funct
         let item = movelist[i];
         let row = document.createElement("tr");
         row.name = "move_row";
-        row.setAttribute('data-bs-toggle',"collapse");
-        row.setAttribute('data-bs-target',"#move_table");
         row.setAttribute('data-value',i);
-        //row.setAttribute('data-listener','move_selected')
+        row.setAttribute('class','menu-items');
         let values = [item.move_name,item.startup,item.active,item.recovery,item.on_hit,item.on_block];
         values.forEach(function(value){
             let element = document.createElement("td");
@@ -177,6 +211,8 @@ document.getElementById("table_body").addEventListener("attacker_selected",funct
         });
         self.appendChild(row);
     }
+    let tb = document.getElementById("move_table");
+    tb.style.maxHeight = tb.scrollHeight + "px";
 });
 
 $.post("fighter_stats",
