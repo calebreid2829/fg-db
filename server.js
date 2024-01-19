@@ -25,7 +25,7 @@ app.get('/test',(req,res)=>{
     res.sendFile(path.join(__dirname+"/express/test.html"));
 })
 app.get('/',(req,res) =>{
-    res.sendFile(path.join(__dirname+'/express/index.html'));
+    res.sendFile(path.join(__dirname+'/express/punish.html'));
     //con.query('SELECT fighter_id,name FROM bucklers.fighters WHERE game_id=1',function(err,result,fields){
     //    if(err) throw err;
     //    const select = document.createElement
