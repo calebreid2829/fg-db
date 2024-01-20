@@ -124,6 +124,23 @@ function add_document_listeners(events){
         });
     });
 }
+function change_collapse(col){
+    let len = col.dataset.max_height *-1;
+    col.style.maxHeight = ((len < 0) ? "0px" : len+"px");
+    col.dataset.max_height *= -1;
+    col.classList.toggle("collapsed")
+}
+function set_max_height(cols){
+    if (cols.classList.contains("collapsed")) {
+        cols.style.maxHeight = "0px";
+        cols.dataset['max_height'] = cols.scrollHeight * -1;
+      }
+      else {
+        cols.style.maxHeight = cols.scrollHeight + "px";
+        cols.dataset['max_height'] = cols.scrollHeight;
+      }
+      cols.classList.remove("hidden");
+  }
 //function add_same_response(events,object){
 //    events.forEach((event)=>{
 //        object.addEventListener(event,object);
@@ -141,33 +158,65 @@ document.getElementById("selected_move_row").addEventListener("move_selected",fu
         element.innerHTML = value;
         self.appendChild(element);
     });
-    let collapsible = document.getElementById("selected_move_table");
-    collapsible.style.maxHeight = collapsible.scrollHeight + "px";
+    let t = document.getElementById("selected_move_table");
+    set_max_height(t);
+    change_collapse(document.getElementById("selected_move_table"));
 });
 
 document.getElementById("selected_move_row").addEventListener("click",function(){
     document.dispatchEvent(new CustomEvent("move_unselected",{bubbles:false}));
-    let collapsible = document.getElementById("selected_move_table");
-    collapsible.style.maxHeight = "0px";
+    change_collapse(document.getElementById("selected_move_table"));
 });
 
 document.getElementById("punish_moves").addEventListener("move_selected",function(e){
+    console.log('in punish updater');
     let self = this;
     remove_children(self);
+    let h = document.createElement("h2");
+    h.innerHTML="Punish Moves";
+    self.append(h);
     let item = e.detail.item;
-    let on_block = parseInt(item.on_block) * -1
+    let on_block = parseInt(item.on_block) * -1;
     let movelist = e.detail.fighter.vs.movelist;
+    let sections = {};
     //TypeError when movelist is null
     for(let i =0;i<movelist.length;i++){
         if(movelist[i].startup <= on_block){
             let li = document.createElement("li");
-            li.innerHTML=`${movelist[i].move_name} - ${movelist[i].startup} Frames - ${movelist[i].input}`;
-            self.append(li);
+            li.innerHTML=`${movelist[i].move_name}`;
+            try{
+                sections[movelist[i].startup].children[1].append(li);
+            }
+            catch(err){
+                if(err.name == "TypeError"){
+                    let row = document.createElement("div");
+                    row.setAttribute('class','row');
+                    let btn = document.createElement("h3");
+                    btn.setAttribute('class','button punish_button');
+                    btn.innerHTML = `${movelist[i].startup} Frame Punish`;
+                    let ul = document.createElement("ul");
+                    ul.setAttribute('class',"collapsible collapsed menu-list");
+                    btn.addEventListener("click",function(){
+                        change_collapse(ul);
+                    });
+                    row.appendChild(btn);
+                    row.appendChild(ul);
+                    row.children[1].append(li);
+                    sections[movelist[i].startup] = row;
+                }
+            }
         }
     }
+    Object.keys(sections).forEach(function(row){
+        self.appendChild(sections[row]);
+        set_max_height(sections[row].children[1]);
+    });
 });
 document.getElementById("punish_moves").addEventListener('move_unselected',function(e){
         remove_children(this);
+        let h = document.createElement("h2");
+        h.innerHTML="Punish Moves";
+        this.append(h);
 });
 //add_same_response(['move_unselected','attacker_unselected'],
 //    document.getElementById("punish_moves"),function(){
@@ -175,10 +224,10 @@ document.getElementById("punish_moves").addEventListener('move_unselected',funct
 //})
 
 document.getElementById("move_table").addEventListener("move_unselected",function(e){
-    this.style.maxHeight = this.scrollHeight + "px";
+    change_collapse(this);
 });
 document.getElementById("move_table").addEventListener("move_selected",function(e){
-    this.style.maxHeight = "0px";
+    change_collapse(this);
 });
 
 document.getElementById("table_body").addEventListener("attacker_unselected",function(e){
@@ -212,7 +261,7 @@ document.getElementById("table_body").addEventListener("attacker_selected",funct
         self.appendChild(row);
     }
     let tb = document.getElementById("move_table");
-    tb.style.maxHeight = tb.scrollHeight + "px";
+    set_max_height(tb);
 });
 
 $.post("fighter_stats",

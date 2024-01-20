@@ -10,10 +10,13 @@
 
     <link rel="stylesheet" href="static/style.css"></style>
     <style>
-      .menu {
-        background-image: radial-gradient(circle, rgba(255, 0, 0, 0) 1%,
-            rgba(95, 9, 234, 0.486)95%, rgba(29, 48, 214, 0.561)100%);
+      .move_table tbody {
         color: white;
+        background-image: linear-gradient(to right, 
+        rgb(131, 7, 148)1%,
+        rgb(48,27,155)15%,
+        rgb(48,27,155)85%,
+        rgb(131, 7, 148)100%);
         /*
         border-left-style: solid;
         border-left-width: 3px;
@@ -21,28 +24,41 @@
         */
       }
     
-      .menu-items:hover {
-        background-image: radial-gradient(circle,
-            rgba(170, 9, 234, 0.486)95%, rgba(219, 9, 234, 0.766)100%);
-        border-style: solid;
-        border-width: 3px;
-        border-color: rgb(255, 140, 249);
-        font-size: 100%;
-        color: rgb(253, 220, 251);
+      .move_table tbody tr:hover {
+        background-image: linear-gradient(to right, 
+        rgb(224, 14, 224)1%,
+        rgb(48,27,155)15%,
+        rgb(48,27,155)85%,
+        rgb(224, 14, 224)100%);
+      }
+      .move_table tbody tr:hover > td{
+        border-image-slice: 1;
+        border-image-source: linear-gradient( to left,
+        rgb(255, 178, 255)1%, 
+        rgb(234, 95, 234)50%,
+        rgb(255, 178, 255)100%);
+      }
+      .move_table tbody tr td{
+        margin-top: 4px;
+        margin-bottom: 4px;
+        border-top-style: solid;
+        border-top-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-color: rgba(192, 73, 208, 0.814);
+      }
+      table {
+        border-collapse: collapse;
       }
 
-      .menu-items{
-        border-style: solid;
-        border-color: rgb(255, 140, 249);
-        transition: border-width .2s ease-out;
-        transition: font-size .4s ease-out;
-        font-size: 98%;
+      .move_table tbody tr{
+        cursor: pointer;
       }
-      .menu-head{
+      .move_table thead{
         color: white;
         background-color:rgb(174, 44, 255);
       }
-      .menu-head tr th{
+      .move_table thead tr th{
         margin-right: 10px;
         margin-left: 10px;
         padding-left: 10px;
@@ -55,105 +71,112 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3">
-          <div class="characters">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col">
-                <select class="player1" name="character_select" id="player1_select" data-name="character_select">
-                  <option class="dropdown-item" value="null" selected>Player 1</option>
-                </select>
+          <div>
+            <div class="container-fluid double-border border-color-light">
+              <div class="container-fluid menu border-color-light background-color-dark">
+                <div class="row">
+                  <div class="col">
+                  <select class="player1" name="character_select" id="player1_select" data-name="character_select">
+                    <option class="dropdown-item" value="null" selected>Player 1</option>
+                  </select>
+                  </div>
+                  <div class="col">
+                  <button class="attacker_button player1 hidden" data-name="attacker_button">Attacker</button>
+                  </div>
                 </div>
-                <div class="col">
-                <button class="attacker_button player1 hidden" data-name="attacker_button">Attacker</button>
+                <div class="collapse show player1" id="player1_stats" data-name="fighter_stats">
+                  <div class="row">
+                    <div class="square mx-auto"></div>
+                  </div>
+                    <div class="row character_stats">
+                      <div class="col">
+                        <h7 class="mx-auto">Health</h7>
+                        <p class="player1" data-name="health"></p>
+                      </div>
+                      <div class="col">
+                        <h7>Forward Dash Speed</h7>
+                        <p class="player1" data-name="fwd_dash_speed"></p>
+                      </div>
+                      <div class="col">
+                        <h7>Back Dash Speed</h7>
+                        <p class="player1" data-name="back_dash_speed"></p>
+                      </div>
+                    </div>
+                    <div class="row character_stats">
+                      <div class="col">
+                        <h7>Forward Dash Distance</h7>
+                        <p class="player1" data-name="fwd_dash_distance"></p>
+                      </div>
+                      <div class="col">
+                        <h7>Back Dash Distance</h7>
+                        <p class="player1" data-name="back_dash_distance"></p>
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                  <button data-bs-toggle="collapse" data-bs-target="#player1_stats"class="mx-auto">
+                    toggle
+                  </button>
                 </div>
               </div>
-              <div class="collapse show player1" id="player1_stats" data-name="fighter_stats">
+            </div>
+            <br>
+            <div class="container-fluid double-border border-color-light">
+              <div class="container-fluid menu border-color-light background-color-dark">
                 <div class="row">
-                  <div class="square mx-auto"></div>
+                  <div class="col">
+                  <select class="player2" name="character_select" id="player2_select" data-name="character_select">
+                    <option class="dropdown-item" value="null" selected>Player 2</option>
+                  </select>
+                  </div>
+                  <div class="col">
+                  <button class="attacker_button player2 hidden" data-name="attacker_button">Attacker</button>
+                  </div>
                 </div>
+                <div class="collapse show" id="player2_stats">
+                  <div class="row">
+                    <div class="square mx-auto"></div>
+                  </div>
                   <div class="row character_stats">
                     <div class="col">
                       <h7 class="mx-auto">Health</h7>
-                      <p class="player1" data-name="health"></p>
+                      <p class="player2" data-name="health"></p>
                     </div>
                     <div class="col">
                       <h7>Forward Dash Speed</h7>
-                      <p class="player1" data-name="fwd_dash_speed"></p>
+                      <p class="player2" data-name="fwd_dash_speed"></p>
                     </div>
                     <div class="col">
                       <h7>Back Dash Speed</h7>
-                      <p class="player1" data-name="back_dash_speed"></p>
+                      <p class="player2" data-name="back_dash_speed"></p>
                     </div>
                   </div>
                   <div class="row character_stats">
                     <div class="col">
                       <h7>Forward Dash Distance</h7>
-                      <p class="player1" data-name="fwd_dash_distance"></p>
+                      <p class="player2" data-name="fwd_dash_distance"></p>
                     </div>
                     <div class="col">
                       <h7>Back Dash Distance</h7>
-                      <p class="player1" data-name="back_dash_distance"></p>
+                      <p class="player2" data-name="back_dash_distance"></p>
                     </div>
                   </div>
-                </div>
-              <div class="row">
-                <button data-bs-toggle="collapse" data-bs-target="#player1_stats"class="mx-auto">
-                  toggle
-                </button>
-              </div>
-              <div class="row">
-                <div class="col">
-                <select class="player2" name="character_select" id="player2_select" data-name="character_select">
-                  <option class="dropdown-item" value="null" selected>Player 2</option>
-                </select>
-                </div>
-                <div class="col">
-                <button class="attacker_button player2 hidden" data-name="attacker_button">Attacker</button>
-                </div>
-              </div>
-              <div class="collapse show" id="player2_stats">
+                  </div>
                 <div class="row">
-                  <div class="square mx-auto"></div>
+                  <button data-bs-toggle="collapse" data-bs-target="#player2_stats"class="mx-auto">
+                    toggle
+                  </button>
                 </div>
-                <div class="row character_stats">
-                  <div class="col">
-                    <h7 class="mx-auto">Health</h7>
-                    <p class="player2" data-name="health"></p>
-                  </div>
-                  <div class="col">
-                    <h7>Forward Dash Speed</h7>
-                    <p class="player2" data-name="fwd_dash_speed"></p>
-                  </div>
-                  <div class="col">
-                    <h7>Back Dash Speed</h7>
-                    <p class="player2" data-name="back_dash_speed"></p>
-                  </div>
-                </div>
-                <div class="row character_stats">
-                  <div class="col">
-                    <h7>Forward Dash Distance</h7>
-                    <p class="player2" data-name="fwd_dash_distance"></p>
-                  </div>
-                  <div class="col">
-                    <h7>Back Dash Distance</h7>
-                    <p class="player2" data-name="back_dash_distance"></p>
-                  </div>
-                </div>
-                </div>
-              <div class="row">
-                <button data-bs-toggle="collapse" data-bs-target="#player2_stats"class="mx-auto">
-                  toggle
-                </button>
               </div>
           </div>
         </div>
       </div>
         <div class="col-lg-6">
           <div class="moves">
-            <div class="collapsible" id="move_table" data-listener="move_unselected move_selected attacker_unselected">
+            <div class="collapsible collapsed" id="move_table" data-listener="move_unselected move_selected attacker_unselected">
               <div class="table-responsive">
-                <table>
-                  <thead class="menu-head">
+                <table class="move_table">
+                  <thead>
                     <tr>
                       <th>Move Name</th>
                       <th>Startup</th>
@@ -163,14 +186,14 @@
                       <th>On Block</th>
                     </tr>
                   </thead>
-                  <tbody class="menu" id="table_body" name = "table_body" data-listener="attacker_selected">
+                  <tbody id="table_body" name = "table_body" data-listener="attacker_selected">
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="collapsible" id="selected_move_table">
+            <div class="collapsible collapsed" id="selected_move_table">
               <div class="table-responsive">
-                <table class="table table-dark table-hover table-striped table-sm">
+                <table class="move_table">
                   <thead>
                     <tr>
                       <th>Move Name</th>
@@ -193,27 +216,24 @@
 
         </div>
         <div class="col-lg-3">
-          <div class="punish_moves">
-            <h7>Punish Moves</h7>
-            <div class="container-fluid">
-              <ul id="punish_moves" data-listener="move_selected move_unselected">
-
-              </ul>
+          <div class="container-fluid double-border border-color-dark">
+            <div class="container-fluid menu border-color-dark background-color-dark" id="punish_moves" data-listener="move_selected move_unselected">
+                <h2>Punish Moves</h2>
             </div>
-          </div>
+        </div>
         </div>
       </div>
     </div>
-    <script>
-      let move_table = document.getElementById("move_table")
-      let selected_move_table = document.getElementById("selected_move_table");
-      move_table.style.maxHeight = move_table.scrollHeight + "px";
-      selected_move_table.style.maxHeight = "0px";
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
 crossorigin="anonymous"></script> 
 <script src="static/jquery.js"></script> 
 <script src="static/scripts.js"></script>
+<script>
+  let cols = document.getElementsByClassName('collapsible');
+  for(let i = 0; i < cols.length; i++){
+    set_max_height(cols[i]);
+  }
+</script>
 </body>
 </html> 

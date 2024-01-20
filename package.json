@@ -1,6 +1,6 @@
 {
   "name": "ls",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "description": "This repo contains the code and pages for my website fg-db.com",
   "main": "server.js",
   "dependencies": {

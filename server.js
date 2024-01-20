@@ -20,7 +20,7 @@ var con = mysql.createConnection({
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static("express"));// default URL for website
-app.use('/static', express.static('express/static'));
+app.use('/static', express.static('static'));
 app.get('/test',(req,res)=>{
     res.sendFile(path.join(__dirname+"/express/test.html"));
 })
@@ -39,6 +39,9 @@ app.get('/',(req,res) =>{
 app.get('/punish',(req,res)=>{
     res.sendFile(path.join(__dirname+'/express/punish.html'));
 });
+app.get('/collapse',(req,res)=>{
+    res.sendFile(path.join(__dirname+'/express/collapse_test.html'));
+})
 
 app.post('/fighter_stats',(req,res)=>{
     con.query(`SELECT a.fighter_id,name,health,fwd_dash_speed,back_dash_speed,fwd_dash_distance,

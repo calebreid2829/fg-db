@@ -1,0 +1,197 @@
+body {
+    background-image: url("/static/fighting_ground.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#test{
+    color: white;
+}
+.hidden{
+    display: none;
+}
+
+/* The container must be positioned relative: */
+ /* The container must be positioned relative: */
+.attacker_button:hover{
+    background-color: rgb(6, 91, 249);
+
+}
+.attacker_button{
+    background-color: rgb(19, 82, 199);
+    color: white;
+}
+.attacker_button.active{
+    background-color: rgb(6, 91, 249);
+}
+.navi{
+    background-color: rgb(73, 73, 73);
+}
+.characters{
+    background-color:blueviolet;
+    opacity: 90%;
+    z-index: 1;
+}
+.selection select{
+width: 60%;
+margin-left: 5%;
+}
+.selection button{
+width: 20%;
+margin-right: 5%;
+margin-left: 5%;
+}
+.attacker_button{
+background-color: rgb(19, 82, 199);
+color: white;
+}
+.square{
+background-color: black;
+width: 100px;
+height: 100px;
+}
+.character_stats{
+background-color: rgb(56, 56, 56);
+color: white;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+}
+
+.hidden{
+    display: none;
+}
+.collapsible{
+    overflow:hidden;
+    /*max-height: 1000px;*/
+    transition: max-height 0.2s ease-out;
+    color: white;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 5px;
+}
+
+.border-color-dark {
+    border-image-source: linear-gradient(
+        rgb(83, 36, 148)1%, 
+        rgba(55,20,101)50%,
+        rgb(133, 61, 234)100%);
+}
+.border-color-light {
+    border-image-source: linear-gradient(
+        rgb(127, 67, 210)1%, 
+        rgb(92, 45, 153)50%,
+        rgb(158, 95, 247)100%);
+}
+.border-color-neon-pink{
+    border-image-source: linear-gradient( to left,
+        rgb(255, 178, 255)1%, 
+        rgb(234, 95, 234)50%,
+        rgb(255, 178, 255)100%);
+}
+.border-color-dark-pink{
+    border-color: rgba(192, 73, 208, 0.814);
+}
+.background-color-dark{
+    background-image: linear-gradient(
+        rgb(52, 14, 140)70%,
+        rgb(137, 32, 190)120%
+    );
+}
+.background-color-light{
+    background-image: linear-gradient(
+        rgb(155, 15, 155)70%,
+        rgb(174, 10, 174)120%
+    );
+}
+
+.button:hover, .button.active{
+    
+    background-image: linear-gradient(to right, 
+    rgb(224, 14, 224)1%,
+    rgb(48,27,155)15%,
+    rgb(48,27,155)85%,
+    rgb(224, 14, 224)100%);
+    border-color: rgb(224, 14, 224);
+    border-image-slice: 1;
+    border-image-source: linear-gradient( to left,
+        rgb(255, 178, 255)1%, 
+        rgb(234, 95, 234)50%,
+        rgb(255, 178, 255)100%);
+}
+.menu .row{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.button{
+    color: white;
+    background-image: linear-gradient(to right, 
+    rgb(131, 7, 148)1%,
+    rgb(48,27,155)15%,
+    rgb(48,27,155)85%,
+    rgb(131, 7, 148)100%);
+
+    transition: background-color 0.3s ease-out;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(192, 73, 208, 0.814);
+    cursor: pointer;
+}
+.menu{
+    width: 99%;
+    height: 99%;
+    border-style: solid;
+    border-width: 3px;
+    border-image-slice: 1;
+    color: white;
+}
+.double-border{
+    border-style: solid;
+    border-width: 3px;
+    border-image-slice: 1;  
+    padding: 0px;     
+    padding-top: 4px;
+    padding-bottom: 4px;  
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.collapsible.menu-list{
+    background-image: linear-gradient(to right, 
+    rgb(224, 14, 224)1%,
+    rgb(174, 10, 174)15%,
+    rgb(174, 10, 174)85%,
+    rgb(224, 14, 224)100%);
+    margin-left: 10%;
+    width: 90%;
+    margin-top: 7px;
+    padding-bottom:4px;
+    float: right;
+    border-style: solid;
+    border-width: 3px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient( to left,
+        rgb(255, 178, 255)1%, 
+        rgb(234, 95, 234)50%,
+        rgb(255, 178, 255)100%);
+}
+.collapsible.menu-list.collapsed{
+    border-width: 0px;
+    padding-bottom: 0;
+    
+}
+.collapsible li{
+    list-style-type: none;
+    text-align: left;
+    padding-bottom: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(255, 178, 255);
+    border-bottom-width: 1px;
+}
