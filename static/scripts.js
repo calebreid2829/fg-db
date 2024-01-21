@@ -11,8 +11,6 @@ class fighter {
     }
     set oponent(vs){
         this.vs = vs;
-        this.attacker_button_listener(this.elements.attacker_button);
-        this.character_select_listener(this.elements.character_select);
     }
     set stats(stats_index){
         if(stats_index >= 0){
@@ -46,63 +44,69 @@ class fighter {
         }  
         return player_elements;
     }
-    character_select_listener(item){
-        let self = this;
-        item.addEventListener("change",function(){
-            let self_value = item.options[item.selectedIndex].value;
-            self.stats = item.selectedIndex-1;
-            if(self_value != "null"){
-                self.post_query(self_value);
-            }
-            if(self.active){
-                document.dispatchEvent(new CustomEvent("move_unselected"))
-            }
-            
-        });
-    }
-    attacker_button_listener(item){
-        let vs = this.vs;
-        let self = this;
-        item.addEventListener("click",function(){
-            item.classList.add("active");
-            self.active = true;
-            vs.elements.attacker_button.classList.remove("active");
-            vs.active = false;
-            document.dispatchEvent(new CustomEvent("attacker_selected",{
-                bubbles:false,
-                detail:{movelist:self.movelist,fighter:self},
-            }));
-            document.dispatchEvent(new CustomEvent("move_unselected"));
-            //self.set_move_table();
-        });
-    }
-    move_select_listener(item){
+}
 
-    }
-    post_query(value){
-        let self = this;
-        $.post("query",
-        {
-          fighter_id: value
-        },
-        function(data,status){
-            console.log(status);
-            self.movelist = data.splice(0);
-            self.elements.attacker_button.classList.remove("hidden");
-            if(self.active){
-                document.dispatchEvent(new CustomEvent("attacker_selected",{
-                    bubbles:false,
-                    detail:{movelist:self.movelist,fighter:self},
-                }));
-            }
+$.post("fighter_stats",
+    {
+    },
+    function(data,status){
+        let fighter_stats = data.splice(0);
+        player1.fighter_list = fighter_stats;
+        player2.fighter_list = fighter_stats;
+        set_fighter_selections(fighter_stats);
+    });
+
+function set_fighter_selections(fighter_stats){
+    let selections = document.getElementsByName("character_select");
+    for(let i=0;i<selections.length;i++){
+        fighter_stats.forEach(function(fighter){
+            let op = document.createElement("option");
+            let txt = document.createTextNode(fighter.name)
+            op.value = fighter.fighter_id;
+            op.classList.add("dropdown-item");
+            op.appendChild(txt);
+            selections[i].appendChild(op);
         });
     }
 }
 
+
 const player1 = new fighter("player1");
+player1.active = true;
 const player2 = new fighter("player2");
+player2.active = false;
 player1.oponent = player2;
 player2.oponent = player1;
+
+document.getElementById("player1_select").addEventListener("change",function(){
+    let self_value = this.options[this.selectedIndex].value;
+    post_query(self_value).done(function(data) {
+        player1.movelist = data.splice(0);
+        document.dispatchEvent(new CustomEvent("attacker_selected",{
+            bubbles:false,
+            detail:{movelist:player1.movelist,fighter:player1},
+        }));
+    });
+
+});
+document.getElementById("player2_select").addEventListener("change",function(){
+    let self_value = this.options[this.selectedIndex].value;
+    post_query(self_value).done(function(data) {
+        player2.movelist = data.splice(0);
+        document.dispatchEvent(new CustomEvent("defender_selected",{
+            bubbles:false,
+            detail:{movelist:player2.movelist},
+        }));
+    });
+
+});
+
+function post_query(value){
+    return $.post("query",
+    {
+      fighter_id: value
+    });
+}
 
 function remove_children(element){
     while(element.children.length >0){
@@ -111,7 +115,7 @@ function remove_children(element){
     return element;
 }
 
-const events = ['move_selected','move_unselected','attacker_selected','attacker_unselected'];
+const events = ['move_selected','move_unselected','attacker_selected','attacker_unselected','defender_selected'];
 
 function add_document_listeners(events){
     events.forEach(function(event){
@@ -129,6 +133,18 @@ function change_collapse(col){
     col.style.maxHeight = ((len < 0) ? "0px" : len+"px");
     col.dataset.max_height *= -1;
     col.classList.toggle("collapsed")
+}
+function show_collapse(col){
+    let len = ((col.dataset.max_height < 0) ? col.dataset.max_height *-1: col.dataset.max_height);
+    col.style.maxHeight = len+"px";
+    col.dataset.max_height = len;
+    col.classList.remove("collapsed");
+}
+function hide_collapse(col){
+    let len = ((col.dataset.max_height > 0) ? col.dataset.max_height *-1: col.dataset.max_height);
+    col.style.maxHeight = "0px";
+    col.dataset.max_height = len;
+    col.classList.add("collapsed");
 }
 function set_max_height(cols){
     if (cols.classList.contains("collapsed")) {
@@ -168,55 +184,72 @@ document.getElementById("selected_move_row").addEventListener("click",function()
     change_collapse(document.getElementById("selected_move_table"));
 });
 
-document.getElementById("punish_moves").addEventListener("move_selected",function(e){
+document.getElementById("punish_moves").addEventListener("defender_selected",function(e){
     console.log('in punish updater');
     let self = this;
     remove_children(self);
-    let h = document.createElement("h2");
-    h.innerHTML="Punish Moves";
-    self.append(h);
-    let item = e.detail.item;
-    let on_block = parseInt(item.on_block) * -1;
-    let movelist = e.detail.fighter.vs.movelist;
+    let movelist = e.detail.movelist;
     let sections = {};
     //TypeError when movelist is null
     for(let i =0;i<movelist.length;i++){
-        if(movelist[i].startup <= on_block){
-            let li = document.createElement("li");
-            li.innerHTML=`${movelist[i].move_name}`;
-            try{
-                sections[movelist[i].startup].children[1].append(li);
-            }
-            catch(err){
-                if(err.name == "TypeError"){
-                    let row = document.createElement("div");
-                    row.setAttribute('class','row');
-                    let btn = document.createElement("h3");
-                    btn.setAttribute('class','button punish_button');
-                    btn.innerHTML = `${movelist[i].startup} Frame Punish`;
-                    let ul = document.createElement("ul");
-                    ul.setAttribute('class',"collapsible collapsed menu-list");
-                    btn.addEventListener("click",function(){
-                        change_collapse(ul);
-                    });
-                    row.appendChild(btn);
-                    row.appendChild(ul);
-                    row.children[1].append(li);
-                    sections[movelist[i].startup] = row;
-                }
+        let li = document.createElement("li");
+        li.innerHTML=`${movelist[i].move_name}`;
+        try{
+            sections[movelist[i].startup].children[1].append(li);
+        }
+        catch(err){
+            if(err.name == "TypeError"){
+                let row = document.createElement("div");
+                row.setAttribute('class','row hidden punish_row');
+                row.setAttribute('data-value',movelist[i].startup)
+                let btn = document.createElement("h3");
+                btn.setAttribute('class','button punish_button');
+                btn.innerHTML = `${movelist[i].startup} Frame Punish`;
+                let ul = document.createElement("ul");
+                ul.setAttribute('class',"collapsible collapsed menu-list");
+                btn.addEventListener("click",function(){
+                    change_collapse(ul);
+                });
+                row.appendChild(btn);
+                row.appendChild(ul);
+                row.children[1].append(li);
+                sections[movelist[i].startup] = row;
             }
         }
     }
     Object.keys(sections).forEach(function(row){
         self.appendChild(sections[row]);
-        set_max_height(sections[row].children[1]);
     });
+    let selected_table = document.getElementById("selected_move_table");
+    if(!selected_table.classList.contains('collapsed')){
+        let on_block = document.getElementById('selected_move_row').lastChild.innerHTML;
+        this.dispatchEvent(new CustomEvent("move_selected",{
+            bubbles: false,
+            detail:{item:{on_block:on_block}}
+        }));
+    }
 });
+
+document.getElementById("punish_moves").addEventListener("move_selected",function(e){
+    console.log('showing punish moves');
+    let rows = document.getElementsByClassName("punish_row");
+    let on_block = parseInt(e.detail.item.on_block) *-1;
+    console.log(on_block);
+    for (let i = 0; i < rows.length; i++){
+        if(parseInt(rows[i].dataset.value) <= on_block){
+            rows[i].classList.remove('hidden');
+            set_max_height(rows[i].children[1]);
+        }
+    }
+});
+
 document.getElementById("punish_moves").addEventListener('move_unselected',function(e){
-        remove_children(this);
-        let h = document.createElement("h2");
-        h.innerHTML="Punish Moves";
-        this.append(h);
+    let rows = document.getElementsByClassName("punish_row");
+    for (let i = 0; i < rows.length; i++){
+        rows[i].classList.add('hidden');
+        rows[i].classList.remove('active');
+        hide_collapse(rows[i].children[1]);
+    }
 });
 //add_same_response(['move_unselected','attacker_unselected'],
 //    document.getElementById("punish_moves"),function(){
@@ -234,6 +267,7 @@ document.getElementById("table_body").addEventListener("attacker_unselected",fun
     remove_children(this);
 });
 document.getElementById("table_body").addEventListener("attacker_selected",function(e){
+    console.log('making table');
     let self = this;
     let movelist = e.detail.movelist;
     let fighter = e.detail.fighter;
@@ -262,28 +296,7 @@ document.getElementById("table_body").addEventListener("attacker_selected",funct
     }
     let tb = document.getElementById("move_table");
     set_max_height(tb);
+    show_collapse(tb);
 });
 
-$.post("fighter_stats",
-    {
-    },
-    function(data,status){
-        let fighter_stats = data.splice(0);
-        player1.fighter_list = fighter_stats;
-        player2.fighter_list = fighter_stats;
-        set_fighter_selections(fighter_stats);
-    });
 
-function set_fighter_selections(fighter_stats){
-    let selections = document.getElementsByName("character_select");
-    for(let i=0;i<selections.length;i++){
-        fighter_stats.forEach(function(fighter){
-            let op = document.createElement("option");
-            let txt = document.createTextNode(fighter.name)
-            op.value = fighter.fighter_id;
-            op.classList.add("dropdown-item");
-            op.appendChild(txt);
-            selections[i].appendChild(op);
-        });
-    }
-}

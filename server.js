@@ -50,13 +50,11 @@ app.post('/fighter_stats',(req,res)=>{
     ON a.fighter_id = b.fighter_id`,
     function(err,result,fields){
         if(err) throw err;
-        console.log('Got fighter details');
         res.send(result.splice(0));
     })
 })
 
 app.post('/query',(req,res)=>{
-
     const fighter_id = req.body.fighter_id
     con.query(`SELECT move_id,fighter_id,move_name,input,startup,active,recovery,on_hit,on_block
     FROM fg_db.moves_base 
@@ -65,7 +63,6 @@ app.post('/query',(req,res)=>{
     ORDER BY fighter_id,move_id ASC`
     , function(err, result, fields){
         if (err) throw err;
-        console.log('Success!');
         //console.log(result);
         res.send(result.splice(0));
 });

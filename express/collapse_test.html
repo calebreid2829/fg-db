@@ -8,275 +8,162 @@
     rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
     crossorigin="anonymous">
 
-    <!--<link rel="stylesheet" href="static/style.css"></style>-->
+    <link rel="stylesheet" href="static/sf6.css"></style>
     <style>
-        body{
-            background-image: url("/static/fighting_ground.jpeg");
-        }
-
-        .hidden{
-            display: none;
-        }
-        .collapsible{
-            overflow:hidden;
-            /*max-height: 1000px;*/
-            transition: max-height 0.2s ease-out;
-            color: white;
-            margin-top: 0px;
-            padding-top: 0px;
-            margin-bottom: 5px;
-        }
-
-        .border-color-dark {
-            border-image-source: linear-gradient(
-                rgb(83, 36, 148)1%, 
-                rgba(55,20,101)50%,
-                rgb(133, 61, 234)100%);
-        }
-        .border-color-light {
-            border-image-source: linear-gradient(
-                rgb(127, 67, 210)1%, 
-                rgb(92, 45, 153)50%,
-                rgb(158, 95, 247)100%);
-        }
-        .border-color-neon-pink{
-            border-image-source: linear-gradient( to left,
-                rgb(255, 178, 255)1%, 
-                rgb(234, 95, 234)50%,
-                rgb(255, 178, 255)100%);
-        }
-        .border-color-dark-pink{
-            border-color: rgba(192, 73, 208, 0.814);
-        }
-        .background-color-dark{
-            background-image: linear-gradient(
-                rgb(52, 14, 140)70%,
-                rgb(137, 32, 190)120%
-            );
-        }
-        .background-color-light{
-            background-image: linear-gradient(
-                rgb(155, 15, 155)70%,
-                rgb(174, 10, 174)120%
-            );
-        }
-
-        .button:hover, .button.active{
-            
-            background-image: linear-gradient(to right, 
-            rgb(224, 14, 224)1%,
-            rgb(48,27,155)15%,
-            rgb(48,27,155)85%,
-            rgb(224, 14, 224)100%);
-            border-color: rgb(224, 14, 224);
-            border-image-slice: 1;
-            border-image-source: linear-gradient( to left,
-                rgb(255, 178, 255)1%, 
-                rgb(234, 95, 234)50%,
-                rgb(255, 178, 255)100%);
-        }
-        .menu .row{
-            width: 95%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .button{
-            color: white;
-            background-image: linear-gradient(to right, 
-            rgb(131, 7, 148)1%,
-            rgb(48,27,155)15%,
-            rgb(48,27,155)85%,
-            rgb(131, 7, 148)100%);
-
-            transition: background-color 0.3s ease-out;
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-            margin-top: 5px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-            border-style: solid;
-            border-width: 2px;
-            border-color: rgba(192, 73, 208, 0.814);
-            cursor: pointer;
-        }
-        .menu{
-            width: 99%;
-            height: 99%;
-            border-style: solid;
-            border-width: 3px;
-            border-image-slice: 1;
-            color: white;
-        }
-        .double-border{
-            border-style: solid;
-            border-width: 3px;
-            border-image-slice: 1;  
-            padding: 0px;     
-            padding-top: 4px;
-            padding-bottom: 4px;  
-            padding-left: 1px;
-            padding-right: 1px;
-        }
-        .collapsible.menu-list{
-            background-image: linear-gradient(to right, 
-            rgb(224, 14, 224)1%,
-            rgb(174, 10, 174)15%,
-            rgb(174, 10, 174)85%,
-            rgb(224, 14, 224)100%);
-            margin-left: 10%;
-            width: 90%;
-            margin-top: 7px;
-            padding-bottom:4px;
-            float: right;
-            border-style: solid;
-            border-width: 3px;
-            border-image-slice: 1;
-            border-image-source: linear-gradient( to left,
-                rgb(255, 178, 255)1%, 
-                rgb(234, 95, 234)50%,
-                rgb(255, 178, 255)100%);
-        }
-        .collapsible.menu-list.collapsed{
-            border-width: 0px;
-            padding-bottom: 0;
-            
-        }
-        .collapsible li{
-            list-style-type: none;
-            text-align: left;
-            padding-bottom: 3px;
-            border-bottom-style: solid;
-            border-bottom-color: rgb(255, 178, 255);
-            border-bottom-width: 1px;
-        }
+      .radio-group{
+        display: flex;
+        flex-flow: row nowrap;
+        margin: none;
+        padding: none;
+        
+        width: 100%;
+      }
+      .radio-group div{
+        flex-grow:1;
+        margin-left: 2px;
+        margin-right: 2px;
+        width: 100%;
+      }
     </style>
+
 </head>
+
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="container-fluid">
-                    <h2 style="margin:auto;color:white;text-align:center;">Character Select</h2>
-                    <div class="row">
-                        <div class="container-fluid double-border border-color-light">
-                            <div class="container-fluid menu border-color-light background-color-dark">
-                                <div class="row">
-                                    <select>
-                                        <option value="1">character</option>
-                                    </select>
-                                </div>
-                                <div class="row">
-                                    <div class="square mx-auto"></div>
-                                </div>
-                                <div class="row character_stats">
-                                    <div class="col">
-                                      <h7 class="mx-auto">Health</h7>
-                                      <p class="player1" data-name="health"></p>
-                                    </div>
-                                    <div class="col">
-                                      <h7>F. Dash Spd</h7>
-                                      <p class="player1" data-name="fwd_dash_speed"></p>
-                                    </div>
-                                    <div class="col">
-                                      <h7>B. Dash Spd</h7>
-                                      <p class="player1" data-name="back_dash_speed"></p>
-                                    </div>
-                                  </div>
-                                  <div class="row character_stats">
-                                    <div class="col">
-                                      <h7>F. Dash Dis.</h7>
-                                      <p class="player1" data-name="fwd_dash_distance"></p>
-                                    </div>
-                                    <div class="col">
-                                      <h7>B. Dash Dis.</h7>
-                                      <p class="player1" data-name="back_dash_distance"></p>
-                                    </div>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
+      <div class="row">
+        <!--Character Menus-->
+        <div class="col-lg-3">
+          <div>
+            <!--Player 1-->
+            <div class="container-fluid double-border border-color-light">
+              <div class="container-fluid menu border-color-light background-color-dark">
+                <!--Character select and attacker button (remove)-->
+                <div class="row">
+                  <h2>Character Select</h2>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="container-fluid punish_menu border-color-dark">
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col">
-                            <br>
-                            <button onclick="testing()">test</button>
-                        </div>
-                        <div class="col"></div>
-                    </div>
+                <div class="row">
+                  <select class="player1" name="character_select" id="player1_select" data-name="character_select">
+                    <option class="dropdown-item" value="null" selected>Player 1</option>
+                  </select>
                 </div>
-            </div>
-            <div class="col-lg-3" id="test_col">
-                <div class="container-fluid double-border border-color-dark">
-                    <div class="container-fluid menu border-color-dark background-color-dark">
-                        <h2>Punish Moves</h2>
-                        <div class="row">
-                            <h3 class="button punish_button">4 Frame Punish</h3>
-                            <ul class="collapsible collapsed menu-list">
-                                <li>Standing Light Punch</li>
-                                <li>Crouching Heavy Punch</li>
-                            </ul>
-                        </div>
-                        <div class="row">
-                            <h3 class="button punish_button"> 5 Frame Punish</h3>
-                            <ul class="collapsible collapsed menu-list">
-                                <li>MP</li>
-                                <li>MK</li>
-                            </ul>
-                        </div>
-                        <br>
-                        <br>
-                        <br>
+                <!--Character stats-->
+                <div class="collapse show player1" id="player1_stats" data-name="fighter_stats">
+                  <div class="row">
+                    <div class="square mx-auto"></div>
+                  </div>
+                  <div class="row">
+                    <!--
+                    <input type="radio" id="movelist" name="page_type" value="movelist">
+                    <label for="movelist">Move List</label>
+                    -->
+                    <div class="radio-group">
+                      <div class="button active" data-radio-group="1">Movelist</div>
+                      <div class="button" id="punishes" data-radio-group="1">Punishes</div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="button" data-radio-group="1">Meaty Setups</div>
+                  </div>
+                  <div class="row">
+                    <div class="button" data-radio-group="1">Combo Builder</div>
+                  </div>
+                </div>
+                <!--Collapse button (change to mine)-->
+                <div class="row">
+                  <button data-bs-toggle="collapse" data-bs-target="#player1_stats"class="mx-auto">
+                    toggle
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+        <!--Moves Table-->
+        <div class="col-lg">
+          <div class="moves">
+            <div class="collapsible collapsed" id="move_table" data-listener="move_unselected move_selected attacker_unselected">
+              <!--All Moves-->
+              <div class="table-responsive">
+                <table class="move_table">
+                  <thead>
+                    <tr>
+                      <th>Move Name</th>
+                      <th>Startup</th>
+                      <th>Active</th>
+                      <th>Recovery</th>
+                      <th>On Hit</th>
+                      <th>On Block</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_body" name = "table_body" data-listener="attacker_selected">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="collapsible collapsed" id="selected_move_table">
+              <!--Selected Move-->
+              <div class="table-responsive">
+                <table class="move_table">
+                  <thead>
+                    <tr>
+                      <th>Move Name</th>
+                      <th>Startup</th>
+                      <th>Active</th>
+                      <th>Recovery</th>
+                      <th>On Hit</th>
+                      <th>On Block</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="selected_move_row" name="selected_move_row" data-listener="move_selected">
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!--Punish Moves-->
+        <div class="col-lg-3 hidden" id="punish_column">
+          <div class="container-fluid double-border border-color-dark">
+            <div class="container-fluid menu border-color-dark background-color-dark" >
+              <div class="row">
+                <h2>Punish Moves</h2>
+              </div>
+                <div class="row">
+                  <select class="player2" name="character_select" id="player2_select" data-name="character_select">
+                    <option class="dropdown-item" value="null" selected>Player 2</option>
+                  </select>
+                </div>
+                <div id="punish_moves" data-listener="move_selected move_unselected defender_selected">
+
                 </div>
             </div>
         </div>
+        </div>
+      </div>
     </div>
-    <script>
-        console.log(4+"");
-        let o = {}
-        console.log(o);
-        o['thing'] = 'stuff'
-        try{
-            o['4'].push(1);
-        }
-        catch(err){
-            if(err.name == "TypeError"){
-                o['4'] = []
-                o['4'].push(1)
-            }
-        }
-        console.log(o);
-        let cols = document.getElementsByClassName("collapsible");
-        for(let i = 0;i <cols.length;i++){
-            if(cols[i].classList.contains("collapsed")){
-                cols[i].style.maxHeight = "0px";
-                cols[i].dataset['max_height'] = cols[i].scrollHeight * -1;
-            }
-            else{
-                cols[i].style.maxHeight = cols[i].scrollHeight + "px";
-                cols[i].dataset['max_height'] = cols[i].scrollHeight;
-            }
-            cols[i].classList.remove("hidden");
-        }
-        let btns = document.getElementsByClassName("punish_button")
-        for(let i = 0; i < btns.length; i++){
-            let nxt = btns[i].nextElementSibling;
-            btns[i].addEventListener("click",function(){
-                change_collapse(nxt);
-                btns[i].classList.toggle("active");
-            });
-        }
-        function change_collapse(col){
-            let len = col.dataset.max_height *-1;
-            col.style.maxHeight = ((len < 0) ? "0px" : len+"px");
-            col.dataset.max_height *= -1;
-            col.classList.toggle("collapsed")
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+crossorigin="anonymous"></script> 
+<script src="static/jquery.js"></script> 
+<script src="static/scripts.js"></script>
+<script>
+  let cols = document.getElementsByClassName('collapsible');
+  for(let i = 0; i < cols.length; i++){
+    set_max_height(cols[i]);
+  }
+  document.getElementById("punishes").addEventListener("click",function(){
+    let radio_buttons = document.querySelectorAll(`[data-radio-group~='1']`);
+    for (let i = 0; i < radio_buttons.length; i++){
+      radio_buttons[i].classList.remove('active');
+    }
+    this.classList.toggle('active');
+    document.getElementById('punish_column').classList.toggle('hidden');
+
+  });
+</script>
 </body>
-</html>
+</html> 

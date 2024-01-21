@@ -1,8 +1,14 @@
+@font-face {
+    font-family: sf6;
+    src: url("/static/CityBrawlersBoldCaps.otf");
+  }
+
 body {
     background-image: url("/static/fighting_ground.jpeg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    font-family: sf6;
 }
 
 #test{
@@ -12,8 +18,6 @@ body {
     display: none;
 }
 
-/* The container must be positioned relative: */
- /* The container must be positioned relative: */
 .attacker_button:hover{
     background-color: rgb(6, 91, 249);
 
@@ -105,26 +109,6 @@ margin-right: auto;
         rgb(174, 10, 174)120%
     );
 }
-
-.button:hover, .button.active{
-    
-    background-image: linear-gradient(to right, 
-    rgb(224, 14, 224)1%,
-    rgb(48,27,155)15%,
-    rgb(48,27,155)85%,
-    rgb(224, 14, 224)100%);
-    border-color: rgb(224, 14, 224);
-    border-image-slice: 1;
-    border-image-source: linear-gradient( to left,
-        rgb(255, 178, 255)1%, 
-        rgb(234, 95, 234)50%,
-        rgb(255, 178, 255)100%);
-}
-.menu .row{
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-}
 .button{
     color: white;
     background-image: linear-gradient(to right, 
@@ -145,6 +129,20 @@ margin-right: auto;
     border-color: rgba(192, 73, 208, 0.814);
     cursor: pointer;
 }
+.button:hover, .button.active{
+    
+    background-image: linear-gradient(to right, 
+    rgb(224, 14, 224)1%,
+    rgb(48,27,155)15%,
+    rgb(48,27,155)85%,
+    rgb(224, 14, 224)100%);
+    border-color: rgb(224, 14, 224);
+    border-image-slice: 1;
+    border-image-source: linear-gradient( to left,
+        rgb(255, 178, 255)1%, 
+        rgb(234, 95, 234)50%,
+        rgb(255, 178, 255)100%);
+}
 .menu{
     width: 99%;
     height: 99%;
@@ -152,6 +150,15 @@ margin-right: auto;
     border-width: 3px;
     border-image-slice: 1;
     color: white;
+    font-size: 1.5em;
+}
+.menu .row{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.menu .row h2{
+    text-align: center;
 }
 .double-border{
     border-style: solid;
@@ -195,3 +202,61 @@ margin-right: auto;
     border-bottom-color: rgb(255, 178, 255);
     border-bottom-width: 1px;
 }
+.move_table {
+    font-size: 1.7em;
+}
+.move_table tbody {
+    color: white;
+    background-image: linear-gradient(to right, 
+    rgb(131, 7, 148)1%,
+    rgb(48,27,155)15%,
+    rgb(48,27,155)85%,
+    rgb(131, 7, 148)100%);
+    /*
+    border-left-style: solid;
+    border-left-width: 3px;
+    border-left-color: rgb(1, 18, 162);
+    */
+  }
+
+  .move_table tbody tr:hover {
+    background-image: linear-gradient(to right, 
+    rgb(224, 14, 224)1%,
+    rgb(48,27,155)15%,
+    rgb(48,27,155)85%,
+    rgb(224, 14, 224)100%);
+  }
+  .move_table tbody tr:hover > td{
+    border-image-slice: 1;
+    border-image-source: linear-gradient( to left,
+    rgb(255, 178, 255)1%, 
+    rgb(234, 95, 234)50%,
+    rgb(255, 178, 255)100%);
+  }
+  .move_table tbody tr td{
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-color: rgba(192, 73, 208, 0.814);
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .move_table tbody tr{
+    cursor: pointer;
+  }
+  .move_table thead{
+    color: white;
+    background-color:rgb(174, 44, 255);
+  }
+  /*.move_table thead tr th{
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }*/
