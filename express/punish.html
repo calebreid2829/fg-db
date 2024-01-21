@@ -9,6 +9,23 @@
     crossorigin="anonymous">
 
     <link rel="stylesheet" href="static/sf6.css"></style>
+    <style>
+      .radio-group{
+        display: flex;
+        flex-flow: row nowrap;
+        margin: none;
+        padding: none;
+        
+        width: 100%;
+      }
+      .radio-group div{
+        flex-grow:1;
+        margin-left: 2px;
+        margin-right: 2px;
+        width: 100%;
+      }
+    </style>
+
 </head>
 
 <body>
@@ -22,14 +39,12 @@
               <div class="container-fluid menu border-color-light background-color-dark">
                 <!--Character select and attacker button (remove)-->
                 <div class="row">
-                  <div class="col">
+                  <h2>Character Select</h2>
+                </div>
+                <div class="row">
                   <select class="player1" name="character_select" id="player1_select" data-name="character_select">
                     <option class="dropdown-item" value="null" selected>Player 1</option>
                   </select>
-                  </div>
-                  <div class="col">
-                  <button class="attacker_button player1 hidden" data-name="attacker_button">Attacker</button>
-                  </div>
                 </div>
                 <!--Character stats-->
                 <div class="collapse show player1" id="player1_stats" data-name="fighter_stats">
@@ -42,9 +57,15 @@
                     <label for="movelist">Move List</label>
                     -->
                     <div class="radio-group">
-                      <p class="button">Movelist</p>
-                      <p class="button">Punish Calculator</p>
+                      <div class="button active" data-radio-group="1">Movelist</div>
+                      <div class="button" id="punishes" data-radio-group="1">Punishes</div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="button" data-radio-group="1">Meaty Setups</div>
+                  </div>
+                  <div class="row">
+                    <div class="button" data-radio-group="1">Combo Builder</div>
                   </div>
                 </div>
                 <!--Collapse button (change to mine)-->
@@ -55,63 +76,10 @@
                 </div>
               </div>
             </div>
-            <br>
-            <!--Player 2-->
-            <div class="container-fluid double-border border-color-light">
-              <div class="container-fluid menu border-color-light background-color-dark">
-                <!--Character select and attacker button (remove)-->
-                <div class="row">
-                  <div class="col">
-                  <select class="player2" name="character_select" id="player2_select" data-name="character_select">
-                    <option class="dropdown-item" value="null" selected>Player 2</option>
-                  </select>
-                  </div>
-                  <div class="col">
-                  <button class="attacker_button player2 hidden" data-name="attacker_button">Attacker</button>
-                  </div>
-                </div>
-                <!--Character stats-->
-                <div class="collapse show" id="player2_stats">
-                  <div class="row">
-                    <div class="square mx-auto"></div>
-                  </div>
-                  <div class="row character_stats">
-                    <div class="col">
-                      <h7 class="mx-auto">Health</h7>
-                      <p class="player2" data-name="health"></p>
-                    </div>
-                    <div class="col">
-                      <h7>Forward Dash Speed</h7>
-                      <p class="player2" data-name="fwd_dash_speed"></p>
-                    </div>
-                    <div class="col">
-                      <h7>Back Dash Speed</h7>
-                      <p class="player2" data-name="back_dash_speed"></p>
-                    </div>
-                  </div>
-                  <div class="row character_stats">
-                    <div class="col">
-                      <h7>Forward Dash Distance</h7>
-                      <p class="player2" data-name="fwd_dash_distance"></p>
-                    </div>
-                    <div class="col">
-                      <h7>Back Dash Distance</h7>
-                      <p class="player2" data-name="back_dash_distance"></p>
-                    </div>
-                  </div>
-                </div>
-                <!--Collapse button (change to mine)-->
-                <div class="row">
-                  <button data-bs-toggle="collapse" data-bs-target="#player2_stats"class="mx-auto">
-                    toggle
-                  </button>
-                </div>
-              </div>
-          </div>
         </div>
         </div>
         <!--Moves Table-->
-        <div class="col-lg-6">
+        <div class="col-lg">
           <div class="moves">
             <div class="collapsible collapsed" id="move_table" data-listener="move_unselected move_selected attacker_unselected">
               <!--All Moves-->
@@ -158,10 +126,20 @@
 
         </div>
         <!--Punish Moves-->
-        <div class="col-lg-3">
+        <div class="col-lg-3 hidden" id="punish_column">
           <div class="container-fluid double-border border-color-dark">
-            <div class="container-fluid menu border-color-dark background-color-dark" id="punish_moves" data-listener="move_selected move_unselected">
+            <div class="container-fluid menu border-color-dark background-color-dark" >
+              <div class="row">
                 <h2>Punish Moves</h2>
+              </div>
+                <div class="row">
+                  <select class="player2" name="character_select" id="player2_select" data-name="character_select">
+                    <option class="dropdown-item" value="null" selected>Player 2</option>
+                  </select>
+                </div>
+                <div id="punish_moves" data-listener="move_selected move_unselected defender_selected">
+
+                </div>
             </div>
         </div>
         </div>
@@ -177,6 +155,15 @@ crossorigin="anonymous"></script>
   for(let i = 0; i < cols.length; i++){
     set_max_height(cols[i]);
   }
+  document.getElementById("punishes").addEventListener("click",function(){
+    let radio_buttons = document.querySelectorAll(`[data-radio-group~='1']`);
+    for (let i = 0; i < radio_buttons.length; i++){
+      radio_buttons[i].classList.remove('active');
+    }
+    this.classList.toggle('active');
+    document.getElementById('punish_column').classList.toggle('hidden');
+
+  });
 </script>
 </body>
 </html> 
